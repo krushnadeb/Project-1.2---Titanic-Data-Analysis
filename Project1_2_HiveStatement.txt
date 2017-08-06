@@ -1,0 +1,66 @@
+--In hive
+
+
+---0
+
+CREATE TABLE TitanicData_Hive(
+PassengerId INT, Survived INT , Pclass INT, Name STRING, Sex STRING, Age INT, SibSp INT,Parch INT,Ticket STRING, Fare DECIMAL(10,5), Cabin STRING, Embarked STRING)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LOCATION '/hive/data/TitanicData';
+
+
+
+
+LOAD data inpath '/user/krushnadebashram_project1_2/17-07-13/*' into table TitanicData_Hive;
+
+
+----Problem 1
+: In this problem statement, we will find the average fare of each class.
+
+Select Pclass,Avg(Fare) From TitanicData_Hive group by PClass;
+
+
+
+1	84.1546875
+
+2               20.662183152
+
+3               13.687643061
+
+
+
+----Problem 2
+: In this problem statement, we will find the number of people alive in each class and embarked at Southampton.
+
+Select Pclass,Count(PClass) From TitanicData_Hive  where Survived=0 and Embarked='S' group by PClass;
+
+
+1	53
+
+2               88
+
+3              286
+
+
+
+
+----Problem 3
+:In this problem statement, we will find out number of males and females who died in each class.
+
+Select Pclass,Sex,Count(Sex) From TitanicData_Hive  where Survived=1  group by PClass,Sex;
+
+
+1	female	91
+
+1	male	45
+
+2	female	70
+
+2	male	17
+
+3	female	72
+
+3	male	47
+
+
